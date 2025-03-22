@@ -1,79 +1,170 @@
-const taskInput = document.getElementById("task");
-const addButton = document.querySelector(".add");
-const taskList = document.querySelector(".list__point");
-const clearButton = document.querySelector(".clear");
-const emptyMessage = document.querySelector(".paragraph");
+// 2. Создаём приложение «Планировщик задач».
+// - В приложении должен быть input для ввода текста задачи и кнопка для её добавления в «Список задач»
+// - Ниже должен быть «Список задач» и кнопка «Очистить список»
+// - Когда задач нет, должно быть серое уведомление о том, что задачи отсутствуют, а кнопка «Очистить список» должна быть неактивна
+// - При добавлении задачи в список, каждая из них должна появляться в списке задач и напротив иметь неактивный чекбокс, а кнопка «Очистить список» должна быть активна
+// - Каждый чекбокс напротив задачи должен менять своё состояние при клике (говоря нам, что задача выполнена)
+// - При клике на кнопку «Очистить список» все задачи должны удаляться
 
-// Загружаем задачи при старте страницы
-document.addEventListener("DOMContentLoaded", loadTasks);
+//     **Важно: Для сохранения состояния списка задач между сеансами работы с приложением используйте Local Storage. Это позволит восстановить список задач при повторном открытии приложения.**
 
-// Функция загрузки списка задач из localStorage
-function loadTasks() {
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+const taskInput = document.querySelector("#input");
+const buttonAdd = document.querySelector("#buttonAdd");
+const buttonClearAll = document.querySelector("#buttonClearAll");
+const buttonClearDone = document.querySelector("#buttonClearDone");
+const taskList = document.querySelector("#tasks");
+const success = document.querySelector("#success");
+const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-  if (tasks.length > 0) {
-    emptyMessage.style.display = "none";
-    clearButton.disabled = false;
-  } else {
-    emptyMessage.style.display = "block";
-    clearButton.disabled = true;
+// класс для создания задач
+class Task {
+  constructor(taskText, done = false) {
+    this.taskText = taskText;
+    this.done = done;
+    this.printTask();
   }
 
-  tasks.forEach((task) => addTaskToList(task.text, task.completed));
+  printTask() {
+    const newTaskItem = document.createElement("label");
+    newTaskItem.classList.add("task");
+    const taskTemplate = `<p>${this.taskText}</p>
+		<input type="checkbox" name="task-checkbox"  ${
+      this.done ? "checked" : ""
+    } class="checkbox"/>`;
+    newTaskItem.insertAdjacentHTML("beforeend", taskTemplate);
+    const checkbox = newTaskItem.querySelector(".checkbox");
+    checkbox.addEventListener("change", () => {
+      this.done = checkbox.checked;
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      enableButtonClearDone();
+    });
+    taskList.appendChild(newTaskItem);
+    taskInput.value = "";
+  }
 }
 
-// Функция сохранения задач в localStorage
-function saveTasks() {
-  let tasks = [];
-  document.querySelectorAll(".list__point li").forEach((li) => {
-    const text = li.querySelector(".task-text").textContent;
-    const completed = li.querySelector(".check").checked;
-    tasks.push({ text, completed });
-  });
+// выводим сохраненные задачи (печатаются за счет вызова метода print в классе)
+const getTasks = function () {
+  for (let task of tasks) {
+    const newTask = new Task(task.taskText, task.done);
+    const newTaskItem = taskList.lastChild;
+  }
+  applyCheckboxes();
+  enableButtonClearAll();
+  enableButtonClearDone();
+};
+
+// включает/выключает кнопку удалить все
+const enableButtonClearAll = function () {
+  if (tasks.length !== 0) {
+    buttonClearAll.disabled = false;
+    success.style.display = "none";
+  } else {
+    buttonClearAll.disabled = true;
+    success.style.display = "block";
+  }
+};
+
+// удаляет все
+const clearAll = function () {
+  let tasksOnPage = taskList.querySelectorAll(".task");
+  tasksOnPage.forEach((task) => task.remove());
+  tasks.length = 0;
+  window.localStorage.removeItem("tasks");
+  enableButtonClearAll();
+};
+
+// запускает функцию удаления всех задач
+buttonClearAll.addEventListener("click", clearAll);
+
+// проверяет ввод пользователя и добавляет задачу
+const addTask = function () {
+  let taskText = taskInput.value.trim();
+  if (taskText === "") {
+    taskInput.classList.add("error");
+    return;
+  } else {
+    taskText = taskInput.value.trim();
+    let newTask = new Task(taskText);
+    tasks.push(newTask);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    enableButtonClearAll();
+  }
+};
+
+// убирает ошибку при вводе в инпут
+taskInput.addEventListener("input", function () {
+  taskInput.classList.remove("error");
+});
+
+// запускает функцию добавления задачи
+buttonAdd.addEventListener("click", addTask);
+
+taskInput.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    buttonAdd.click();
+  }
+});
+
+// вкл/выкл кнопку удаления выполненных задач
+function enableButtonClearDone() {
+  const checkboxes = document.querySelectorAll(".checkbox");
+  for (const checkbox of checkboxes) {
+    if (checkbox.checked) {
+      buttonClearDone.disabled = false;
+      return;
+    } else {
+      buttonClearDone.disabled = true;
+    }
+  }
+  if (tasks.length == 0) {
+    buttonClearDone.disabled = true;
+  }
+}
+
+// удаляет выполненные задачи
+function clearDoneTasks() {
+  const checkboxes = document.querySelectorAll(".checkbox");
+  for (const checkbox of checkboxes) {
+    if (checkbox.checked) {
+      const taskItem = checkbox.closest(".task");
+      const index = tasks.findIndex(
+        (task) => task.taskText === taskItem.textContent.trim()
+      );
+      if (index !== -1) {
+        tasks.splice(index, 1);
+        taskItem.remove();
+      }
+    }
+  }
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  enableButtonClearAll();
+  enableButtonClearDone();
 }
 
-// Функция добавления задачи в список
-function addTaskToList(taskText, isCompleted) {
-  const listItem = document.createElement("li");
+// запускает функцию удаления выполненных задач
+buttonClearDone.addEventListener("click", clearDoneTasks);
 
-  const taskSpan = document.createElement("span");
-  taskSpan.textContent = taskText;
-  taskSpan.classList.add("task-text");
-  listItem.appendChild(taskSpan);
+// при загрузке проверяет, есть ли сохраненные задачи и выводит имеющиеся либо очищает все
+window.onload = function () {
+  if (tasks.length !== 0) {
+    getTasks();
+  } else {
+    clearAll();
+  }
+};
 
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.classList.add("check");
-  checkbox.checked = isCompleted;
-  checkbox.addEventListener("change", saveTasks);
-
-  listItem.appendChild(checkbox);
-  taskList.appendChild(listItem);
-
-  emptyMessage.style.display = "none";
-  clearButton.disabled = false;
+function applyCheckboxes() {
+  const checkboxes = document.querySelectorAll(".checkbox");
+  for (const checkbox of checkboxes) {
+    checkbox.addEventListener("change", () => {
+      const taskItem = checkbox.closest(".task");
+      const index = tasks.findIndex(
+        (task) => task.taskText === taskItem.textContent.trim()
+      );
+      tasks[index].done = checkbox.checked;
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      enableButtonClearDone();
+    });
+  }
 }
-
-// Функция создания новой задачи
-function createTask() {
-  const taskText = taskInput.value.trim();
-  if (!taskText) return;
-
-  addTaskToList(taskText, false);
-  saveTasks();
-
-  taskInput.value = "";
-}
-
-// Функция очистки списка задач
-function clearTasks() {
-  taskList.innerHTML = "";
-  localStorage.removeItem("tasks");
-  emptyMessage.style.display = "block";
-  clearButton.disabled = true;
-}
-
-// Назначаем обработчики событий
-addButton.addEventListener("click", createTask);
-clearButton.addEventListener("click", clearTasks);

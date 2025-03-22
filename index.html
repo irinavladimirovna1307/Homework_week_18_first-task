@@ -3,28 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./assets/style.css" />
+    <link rel="stylesheet" href="./assets/todo.css" />
+    <title>to-do list</title>
   </head>
-  <body>
-    <div id="container">
-      <div id="box">
-        <h2>Добавить задачу</h2>
+  <body class="body">
+    <div class="list">
+      <h1 class="title">список задач</h1>
+      <h2 class="label">Добавить задачу</h2>
+      <div class="task-input">
         <input
-          onchange="toggleButton()"
-          class="data"
-          id="task"
           type="text"
-          placeholder="Введите задачу"
+          id="input"
+          required
+          placeholder="погладить котика"
+          class="input"
         />
-        <button class="add btn" onclick="createTask()">Добавить</button>
+        <button class="button" id="buttonAdd">добавить</button>
       </div>
-      <h2>Список задач:</h2>
-      <p class="paragraph">Список пуст</p>
-      <div class="list">
-        <ul class="list__point"></ul>
+      <h2 class="label">Список задач</h2>
+      <div class="tasklist">
+        <div class="tasks" id="tasks">
+          <div class="success" id="success">Мы все сделали!</div>
+        </div>
+        <div class="button-container">
+          <button class="button clear" id="buttonClearAll" disabled>
+            очистить список
+          </button>
+          <button class="button clear" id="buttonClearDone" disabled>
+            удалить выполненные
+          </button>
+        </div>
       </div>
-      <button disabled class="clear btn">Очистить список</button>
     </div>
     <script src="./index.js"></script>
   </body>
