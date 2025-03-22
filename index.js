@@ -9,12 +9,14 @@ document.addEventListener("DOMContentLoaded", loadTasks);
 
 // Функция загрузки списка задач из localStorage
 function loadTasks() {
-  let tasks = localStorage.getItem("tasks");
-  tasks = tasks ? JSON.parse(tasks) : [];
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
   if (tasks.length > 0) {
     emptyMessage.style.display = "none";
     clearButton.disabled = false;
+  } else {
+    emptyMessage.style.display = "block";
+    clearButton.disabled = true;
   }
 
   tasks.forEach((task) => addTaskToList(task.text, task.completed));
@@ -56,12 +58,12 @@ function addTaskToList(taskText, isCompleted) {
 // Функция создания новой задачи
 function createTask() {
   const taskText = taskInput.value.trim();
-  if (!taskText) return; // Если пусто, просто выходим
+  if (!taskText) return;
 
   addTaskToList(taskText, false);
   saveTasks();
 
-  taskInput.value = ""; // Очищаем поле ввода
+  taskInput.value = "";
 }
 
 // Функция очистки списка задач
