@@ -4,7 +4,7 @@
   box-sizing: border-box;
   margin-block: 0;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  color: rgb(251, 219, 193);
+  color: rgb(59, 37, 19);
 }
 
 .body {
@@ -15,7 +15,7 @@
   position: relative;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   margin: 0;
-  color: rgb(251, 219, 193);
+  color: rgb(59, 37, 19);
   padding: 2vw;
 }
 
@@ -29,7 +29,6 @@
   right: 0px;
   bottom: 0px;
   left: 0px;
-  background-color: rgba(11, 3, 56, 0.9);
 }
 
 .list {
@@ -60,16 +59,16 @@
 }
 
 .input {
-  background-color: rgba(11, 3, 56, 0.1);
-  border: 1px solid rgb(222, 112, 33);
+  background-color: rgba(31, 30, 34, 0.1);
+  border: 1px solid rgb(85, 52, 29);
   padding: 0.5rem;
   border-radius: 0.3rem;
-  background-color: rgba(222, 112, 33, 0.1);
+  background-color: rgba(85, 52, 29, 0.1);
   flex-grow: 1;
 }
 
 .input:focus {
-  outline: 2px solid rgb(222, 112, 33);
+  outline: 2px solid rgb(85, 52, 29);
 }
 
 .error {
@@ -79,21 +78,21 @@
 }
 
 .button {
-  background-color: rgba(241, 150, 84, 0.9);
-  border: 1px solid rgb(222, 112, 33);
+  background-color: rgba(150, 113, 88, 0.9);
+  border: 1px solid rgb(85, 52, 29);
   padding: 0.5rem;
   border-radius: 0.3rem;
   font-size: 1rem;
-  color: rgb(11, 3, 56);
+  color: rgb(31, 30, 34);
 }
 
 .button:hover {
-  background-color: rgba(222, 112, 33, 0.9);
+  background-color: rgba(85, 52, 29, 0.9);
 }
 
 .tasklist {
   width: 100%;
-  border: 1px solid rgb(222, 112, 33);
+  border: 1px solid rgb(85, 52, 29);
   padding: 0.5rem;
   border-radius: 0.3rem;
   display: flex;
@@ -102,7 +101,7 @@
 }
 
 .task {
-  border: 1px solid rgb(222, 112, 33);
+  border: 1px solid rgb(85, 52, 29);
   padding: 0.5rem;
   border-radius: 0.3rem;
   margin: 0.5rem auto;
@@ -111,15 +110,15 @@
 }
 
 .task:hover {
-  background-color: rgba(222, 112, 33, 0.1);
+  background-color: rgba(85, 52, 29, 0.1);
 }
 
 .checkbox {
-  background-color: rgba(222, 112, 33, 0.2);
+  background-color: rgba(85, 52, 29, 0.2);
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  outline: 1px solid rgb(222, 112, 33);
+  outline: 1px solid rgb(85, 52, 29);
   border-radius: 2px;
   width: 14px;
   height: 14px;
@@ -127,12 +126,12 @@
 }
 
 .checkbox:hover {
-  background: rgba(222, 112, 33, 0.7);
+  background: rgba(85, 52, 29, 0.7);
 }
 
 .checkbox:checked {
-  background: rgb(23, 177, 136);
-  outline: 1px solid rgb(23, 177, 136);
+  background: rgb(168, 65, 58);
+  outline: 1px solid rgb(168, 65, 58);
 }
 
 .button-container {
@@ -155,5 +154,5 @@
   border-radius: 0.3rem;
   margin: 0.5rem auto;
   text-align: center;
-  color: rgb(11, 3, 56);
+  color: rgb(31, 30, 34);
 }/*# sourceMappingURL=todo.css.map */
