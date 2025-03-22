@@ -5,10 +5,11 @@
 }
 
 html {
-  background: url("https://s1.1zoom.ru/big7/407/Starfish_Shells_Sand_490860.jpg")
+  background: url("https://images.wallpaperscraft.com/image/single/comets_stars_space_161658_3840x2160.jpg")
     no-repeat center center;
   min-height: 100%;
   background-size: cover;
+  font-family: "Arial", sans-serif;
 }
 
 #container {
@@ -21,13 +22,17 @@ html {
 h2 {
   font-size: 2.5rem;
   padding: 1.25rem;
+  color: seashell;
 }
 
+/* Поле ввода */
 #task {
-  width: 18.75rem;
-  height: 2rem;
-  font-size: 1.2rem;
-  border-radius: 5px;
+  width: 25rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  padding: 0.5rem;
 }
 
 .data:hover {
@@ -37,22 +42,25 @@ h2 {
 
 .data:focus {
   background: rgba(112, 218, 226, 0.438);
-  border: 2px solid rgba(145, 70, 70, 0.61);
-  outline: rgba(145, 70, 70, 0.61);
+  border: 2px solid rgba(30, 62, 105, 0.61);
+  outline: rgba(30, 62, 105, 0.61);
 }
 
 .data:focus::placeholder {
   color: transparent;
 }
 
+/* Кнопки */
 .btn {
-  width: 10rem;
-  background-color: rgba(145, 70, 70, 0.61);
+  width: 12rem;
+  background-color: rgba(30, 62, 105, 0.8);
   color: white;
   border: none;
-  height: 2rem;
-  font-size: 1.2rem;
-  border-radius: 5px;
+  height: 3rem;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .add:hover {
@@ -67,10 +75,12 @@ h2 {
   opacity: 0.5;
 }
 
+/* Список задач */
 .list {
   width: 35%;
-  margin: 0 auto;
-  padding-top: 1.25rem;
+  margin: 2rem auto;
+  /*padding-top: 1.25rem; */
+  color: seashell;
 }
 
 .list__point {
@@ -78,22 +88,32 @@ h2 {
   font-size: 1.5rem;
 }
 
+/* Отдельная задача */
 li {
   border: 1px solid gray;
-  height: 50px;
+  height: 60px;
   font-size: 30px;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
+/* Сообщение "Список пуст" */
 p {
   font-size: 2.5rem;
   font-weight: lighter;
   color: lightgrey;
 }
 
+/* Чекбокс */
 .check {
-  width: 35px;
+  width: 30px;
+  height: 30px;
+  margin-left: 1rem;
 }
 
 .check:checked {
