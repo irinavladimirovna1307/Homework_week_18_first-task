@@ -1,54 +1,77 @@
 const taskInput = document.getElementById("task");
-const add = document.getElementsByClassName("add");
+const addButton = document.querySelector(".add");
+const taskList = document.querySelector(".list__point");
+const clearButton = document.querySelector(".clear");
+const emptyMessage = document.querySelector(".paragraph");
 
+// Загружаем задачи при старте страницы
+document.addEventListener("DOMContentLoaded", loadTasks);
+
+// Функция загрузки списка задач из localStorage
+function loadTasks() {
+  let tasks = localStorage.getItem("tasks");
+  tasks = tasks ? JSON.parse(tasks) : [];
+
+  if (tasks.length > 0) {
+    emptyMessage.style.display = "none";
+    clearButton.disabled = false;
+  }
+
+  tasks.forEach((task) => addTaskToList(task.text, task.completed));
+}
+
+// Функция сохранения задач в localStorage
+function saveTasks() {
+  let tasks = [];
+  document.querySelectorAll(".list__point li").forEach((li) => {
+    const text = li.querySelector(".task-text").textContent;
+    const completed = li.querySelector(".check").checked;
+    tasks.push({ text, completed });
+  });
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// Функция добавления задачи в список
+function addTaskToList(taskText, isCompleted) {
+  const listItem = document.createElement("li");
+
+  const taskSpan = document.createElement("span");
+  taskSpan.textContent = taskText;
+  taskSpan.classList.add("task-text");
+  listItem.appendChild(taskSpan);
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.classList.add("check");
+  checkbox.checked = isCompleted;
+  checkbox.addEventListener("change", saveTasks);
+
+  listItem.appendChild(checkbox);
+  taskList.appendChild(listItem);
+
+  emptyMessage.style.display = "none";
+  clearButton.disabled = false;
+}
+
+// Функция создания новой задачи
 function createTask() {
-  const taskText = taskInput.value;
-  let list = document.querySelector(".list__point");
-  let NewPoint = document.createElement("li");
-  NewPoint.textContent = taskText;
-  let checkBox = document.createElement("input");
-  checkBox.type = "checkbox";
-  checkBox.checked = false;
-  checkBox.classList.add("check");
+  const taskText = taskInput.value.trim();
+  if (!taskText) return; // Если пусто, просто выходим
 
-  if (taskText === "") {
-    alert("Введите задачу!");
-  } else {
-    list.append(NewPoint);
-    NewPoint.append(checkBox);
-    taskInput.value = "";
-    document.querySelector(".paragraph").style.display = "none";
+  addTaskToList(taskText, false);
+  saveTasks();
 
-    //if (taskText.trim() !== '') {
-    let tasks = localStorage.getItem("tasks");
-    tasks = tasks ? JSON.parse(tasks) : [];
-    tasks.push(taskText);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-
-    /* } else {
-             tasks = [];
-         }*/
-  }
+  taskInput.value = ""; // Очищаем поле ввода
 }
 
-// Очистить список
-const close = document.getElementsByClassName("clear");
-for (let i = 0; i < close.length; i++) {
-  close[i].onclick = function () {
-    const div = document.querySelector(".list");
-    div.style.display = "none";
-    document.querySelector(".clear").disabled = true;
-    document.querySelector(".paragraph").style.display = "";
-    location.reload();
-  };
+// Функция очистки списка задач
+function clearTasks() {
+  taskList.innerHTML = "";
+  localStorage.removeItem("tasks");
+  emptyMessage.style.display = "block";
+  clearButton.disabled = true;
 }
 
-//Сделать кнопку активной
-
-function toggleButton() {
-  if (taskInput.value === "") {
-    document.querySelector(".clear").disabled = true;
-  } else {
-    document.querySelector(".clear").disabled = false;
-  }
-}
+// Назначаем обработчики событий
+addButton.addEventListener("click", createTask);
+clearButton.addEventListener("click", clearTasks);
