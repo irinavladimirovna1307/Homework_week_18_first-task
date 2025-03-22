@@ -4,7 +4,7 @@
   box-sizing: border-box;
   margin-block: 0;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  color: rgb(59, 37, 19);
+  color: rgb(54, 34, 18);
 }
 
 .body {
@@ -15,7 +15,7 @@
   position: relative;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   margin: 0;
-  color: rgb(59, 37, 19);
+  color: rgb(54, 34, 18);
   padding: 2vw;
 }
 
@@ -60,15 +60,15 @@
 
 .input {
   background-color: rgba(31, 30, 34, 0.1);
-  border: 1px solid rgb(85, 52, 29);
+  border: 1px solid rgb(63, 49, 39);
   padding: 0.5rem;
   border-radius: 0.3rem;
-  background-color: rgba(85, 52, 29, 0.1);
+  background-color: rgba(63, 49, 39, 0.1);
   flex-grow: 1;
 }
 
 .input:focus {
-  outline: 2px solid rgb(85, 52, 29);
+  outline: 2px solid rgb(63, 49, 39);
 }
 
 .error {
@@ -79,7 +79,7 @@
 
 .button {
   background-color: rgba(150, 113, 88, 0.9);
-  border: 1px solid rgb(85, 52, 29);
+  border: 1px solid rgb(63, 49, 39);
   padding: 0.5rem;
   border-radius: 0.3rem;
   font-size: 1rem;
@@ -87,12 +87,12 @@
 }
 
 .button:hover {
-  background-color: rgba(85, 52, 29, 0.9);
+  background-color: rgba(63, 49, 39, 0.9);
 }
 
 .tasklist {
   width: 100%;
-  border: 1px solid rgb(85, 52, 29);
+  border: 1px solid rgb(63, 49, 39);
   padding: 0.5rem;
   border-radius: 0.3rem;
   display: flex;
@@ -101,7 +101,7 @@
 }
 
 .task {
-  border: 1px solid rgb(85, 52, 29);
+  border: 1px solid rgb(63, 49, 39);
   padding: 0.5rem;
   border-radius: 0.3rem;
   margin: 0.5rem auto;
@@ -110,15 +110,15 @@
 }
 
 .task:hover {
-  background-color: rgba(85, 52, 29, 0.1);
+  background-color: rgba(63, 49, 39, 0.1);
 }
 
 .checkbox {
-  background-color: rgba(85, 52, 29, 0.2);
+  background-color: rgba(63, 49, 39, 0.2);
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  outline: 1px solid rgb(85, 52, 29);
+  outline: 1px solid rgb(63, 49, 39);
   border-radius: 2px;
   width: 14px;
   height: 14px;
@@ -126,7 +126,7 @@
 }
 
 .checkbox:hover {
-  background: rgba(85, 52, 29, 0.7);
+  background: rgba(63, 49, 39, 0.7);
 }
 
 .checkbox:checked {
@@ -144,12 +144,12 @@
 }
 
 .clear:disabled {
-  background-color: rgba(160, 255, 230, 0.3);
+  background-color: rgba(59, 59, 59, 0.3);
   border: none;
 }
 
 .success {
-  background-color: rgba(160, 255, 230, 0.3);
+  background-color: rgba(59, 59, 59, 0.3);
   padding: 0.5rem;
   border-radius: 0.3rem;
   margin: 0.5rem auto;
